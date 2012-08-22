@@ -12,10 +12,10 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: dummy_development
+  database: wmail_dev
   pool: 5
   username: root
-  password:
+  password: mindfire
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -25,10 +25,10 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: dummy_test
+  database: wmail_test
   pool: 5
   username: root
-  password:
+  password: mindfire
   socket: /var/run/mysqld/mysqld.sock
 
 production:
