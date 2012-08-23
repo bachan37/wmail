@@ -2,5 +2,5 @@ class User < ActiveRecord::Base
 
   attr_accessible :user_name
 
-  validates :user_name, :presence => true
+  validates :user_name, :presence => true, :uniqueness => { :case_sensitive => false }
 end
