@@ -1,0 +1,21 @@
+<div class="login-block">
+  <div class="block-header">Login here!</div>
+
+  <div class="block-body">
+    <%= form_for :user do |f| %>
+
+      <div class="fields">
+        <%= f.label :user_name %><br/>
+        <%= f.text_field :user_name %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Login!" %>
+      </div>
+
+      <div class="additional-links">
+        <%= link_to "Do not have an account? Lets sign up!", new_user_path %>
+      </div>
+    <% end %>
+  </div>
+</div>
