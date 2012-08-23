@@ -5,6 +5,18 @@ class UsersController < ApplicationController
 
   end
 
+  # signin process
+  def signin
+    @user = User.find_by_user_name(params[:user][:user_name])
+
+    unless @user.blank?
+      sign_in @user
+      # redirect_to
+    else
+      render "index"
+    end
+  end
+
   # showing registration
   def new
     @user = User.new
@@ -24,6 +36,7 @@ class UsersController < ApplicationController
 
   # make logout
   def destroy
-
+  
   end
+  
 end
