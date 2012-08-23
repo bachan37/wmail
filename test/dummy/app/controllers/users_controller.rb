@@ -11,10 +11,14 @@ class UsersController < ApplicationController
 
     unless @user.blank?
       sign_in @user
-      # redirect_to
+      redirect_to home_users_path
     else
       render "index"
     end
+  end
+
+  def home
+    
   end
 
   # showing registration

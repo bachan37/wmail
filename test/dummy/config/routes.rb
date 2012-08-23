@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, :only => [:index, :new, :create, :destroy] do
     collection do
       post :signin
+      get :home
     end
   end
 
