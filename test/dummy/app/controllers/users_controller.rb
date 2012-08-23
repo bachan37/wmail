@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   # showing login
   def index
-
+    @user = User.new
   end
 
   # showing registration
