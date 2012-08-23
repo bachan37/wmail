@@ -2,7 +2,7 @@
   <div class="block-header">Login here!</div>
 
   <div class="block-body">
-    <%= form_for :user do |f| %>
+    <%= form_for :user, :url => 'users/signin' do |f| %>
 
       <div class="fields">
         <%= f.label :user_name %><br/>
