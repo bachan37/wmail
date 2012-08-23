@@ -3,7 +3,7 @@
   They will automatically be included in application.css.
 */
 
-.login-block {
+.login-block, .register-block {
   border: 1px solid;
   height: 199px;
   margin: 12% auto;
@@ -14,6 +14,8 @@
   border-bottom: 1px solid;
   padding: 2%;
   width: 96%;
+  background: brown;
+  color: #FFF;
 }
 
 .block-body {
