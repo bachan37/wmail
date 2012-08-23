@@ -12,9 +12,9 @@
     <div class="nav">
       <ul>
         <% if current_user %>
-          <li><%= link_to 'home', home_users_path %></li>
-          <li><%= link_to 'sign out', signout_users_path %></li>
-          <li><%= link_to 'wMail', wmail_path %></li>
+          <li><%= link_to 'home', main_app.home_users_path %></li>
+          <li><%= link_to 'sign out', main_app.signout_users_path %></li>
+          <li><%= link_to 'wMail', main_app.wmail_path %></li>
         <% end %>
       </ul>
     </div>

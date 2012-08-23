@@ -12,7 +12,7 @@ module Wmail
     # output: html
     #-------------------------------------------------------------------
     def index
-
+      @wmail_accounts = WmailAccount.find_all_by_user_id(current_user.id)
     end
 
     #-----------------------------------------------------------------------
@@ -20,7 +20,7 @@ module Wmail
     # output: html
     #-----------------------------------------------------------------------
     def new
-      
+      @wmail_account = WmailAccount.new(:user_id => current_user.id)
     end
 
     #-----------------------------------------------------------------------

@@ -1,0 +1,23 @@
+<div class="wmail-form-block">
+  <div class="wmail-block-header">Associate your mail account</div>
+
+  <div class="wmail-form-errors">
+    <% @wmail_account.errors.full_messages.each do |err_msg|%>
+      <%= err_msg %>
+    <% end unless @wmail_account.errors.full_messages.blank?%>
+  </div>
+
+  <div class="wmail-block-body">
+    <%= form_for :wmail_account do |f| %>
+
+      <div class="wmail-fields">
+        <%= f.label :user_email %><br/>
+        <%= f.email_field :user_email %>
+      </div>
+
+      <div class="wmail-actions">
+        <%= f.submit "Add Account" %>
+      </div>
+    <% end %>
+  </div>
+</div>

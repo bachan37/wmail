@@ -1,0 +1,19 @@
+<p>
+  You have associated below mail accounts with wMail.
+</p>
+
+<ul class="wmail-account-list">
+  <li class="wmail-head">
+    <span class="wmail-email">Email</span>
+    <span class="wmail-actions"></span>
+  </li>
+
+  <% @wmail_accounts.each do |account| %>
+    <li class="wmail-row">
+      <span class="wmail-email"><%= account.user_email %></span>
+      <span class="wmail-actions">
+        <%= link_to 'Remove', destroy_wmail_account_path(account) %>
+      </span>
+    </li>
+  <% end %>
+</ul>
