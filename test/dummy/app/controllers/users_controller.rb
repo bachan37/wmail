@@ -35,8 +35,9 @@ class UsersController < ApplicationController
   end
 
   # make logout
-  def destroy
-  
+  def signout
+    sign_out
+    redirect_to users_path
   end
   
 end
