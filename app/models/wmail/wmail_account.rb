@@ -7,7 +7,7 @@ module Wmail
   class WmailAccount < ActiveRecord::Base
     attr_accessible :user_id, :user_email
 
-    belongs_to :user, :class_name => wmail_user_class, :foreign_key => :user_id
+    belongs_to :user, :class_name => Wmail.user_class, :foreign_key => :user_id
 
     email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :user_id, :presence => true
