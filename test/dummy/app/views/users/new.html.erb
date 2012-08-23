@@ -1,13 +1,27 @@
-Signup your account.<br />
-<% @user.errors.full_messages.each do |err_msg|%>
-  <%= err_msg %>
-<% end unless @user.errors.full_messages.blank?%>
+<div class="register-block">
+  <div class="block-header">Signup your account!</div>
 
-<%= form_for @user do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :user_name %>
-  <br />
-  <br />
-  <%= f.submit "Sign up" %>
+  <div class="form-errors">
+    <% @user.errors.full_messages.each do |err_msg|%>
+      <%= err_msg %>
+    <% end unless @user.errors.full_messages.blank?%>
+  </div>
 
-<% end %>
+  <div class="block-body">
+    <%= form_for :user do |f| %>
+
+      <div class="fields">
+        <%= f.label :user_name %><br/>
+        <%= f.text_field :user_name %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign Up!" %>
+      </div>
+
+      <div class="additional-links">
+        <%= link_to "Already have an account? Sign in!", users_path %>
+      </div>
+    <% end %>
+  </div>
+</div>
