@@ -1,0 +1,1 @@
+Wmail.user_class = "User"
