@@ -12,7 +12,7 @@
     <li class="wmail-row">
       <span class="wmail-email"><%= account.user_email %></span>
       <span class="wmail-actions">
-        <%= link_to 'Remove', destroy_wmail_account_path(account) %>
+        <%= link_to 'Remove', wmail_account_path(account), :method => :delete, :confirm => 'Deleting an account will delete all the saved emails and other data. Are you sure?' %>
       </span>
     </li>
   <% end %>
