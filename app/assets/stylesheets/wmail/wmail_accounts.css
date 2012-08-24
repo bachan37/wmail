@@ -2,3 +2,30 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.wmail-form-block {
+  border: 1px solid;
+  height: 199px;
+  margin: 12% auto;
+  width: 400px;
+}
+
+.wmail-block-header {
+  border-bottom: 1px solid;
+  padding: 2%;
+  width: 96%;
+  background: brown;
+  color: #FFF;
+}
+
+.wmail-block-body {
+  padding: 4% 8%;
+}
+
+.wmail-fields {
+  margin-bottom: 10px;
+}
+
+.wmail-actions, .wmail-additional-links {
+  margin: 10px 0;
+}
