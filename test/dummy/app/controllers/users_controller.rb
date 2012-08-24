@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+  before_filter :is_signed_in, :only => [:home, :signout]
+  before_filter :is_signed_out, :only => [:index, :signin, :new]
+
   # showing login
   def index
     @user = User.new
@@ -43,5 +46,16 @@ class UsersController < ApplicationController
     sign_out
     redirect_to users_path
   end
-  
+
+  private
+
+  def is_signed_in
+    redirect_to users_path if current_user.blank?
+  end
+
+  def is_signed_out
+    redirect_to home_users_path unless current_user.blank?
+  end
+
+
 end
