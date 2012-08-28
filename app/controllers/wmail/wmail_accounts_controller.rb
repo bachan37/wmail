@@ -47,6 +47,22 @@ module Wmail
       end
     end
 
+    #-----------------------------------------------------------------------
+    # desc: just for the startup. need to move this in different controller later.
+    # output: NA
+    #-----------------------------------------------------------------------
+    def login
+
+    end
+
+    #-----------------------------------------------------------------------
+    # desc: just for the startup. need to move this in different controller later.
+    # output: NA
+    #-----------------------------------------------------------------------
+    def authenticate
+      
+    end
+
   end
 
 end

@@ -1,0 +1,28 @@
+<div class="wmail-form-block">
+  <div class="wmail-block-header">Login to wmail account</div>
+
+  <div class="wmail-form-errors">
+    <%# @wmail_account.errors.full_messages.each do |err_msg|%>
+      <%#= err_msg %>
+    <%# end unless @wmail_account.errors.full_messages.blank?%>
+  </div>
+
+  <div class="wmail-block-body">
+    <%= form_for :user, :url => 'authenticate' do |f| %>
+
+      <div class="wmail-fields">
+        <%= f.label :email %><br/>
+        <%= f.email_field :email %>
+      </div>
+
+      <div>
+        <%= f.label :password %><br/>
+        <%= f.password_field :password %>
+      </div>
+
+      <div class="wmail-actions">
+        <%= f.submit "Login" %>
+      </div>
+    <% end %>
+  </div>
+</div>
