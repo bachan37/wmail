@@ -19,11 +19,18 @@ module Wmail
     def imap_authenticate(email, password)
       
       unless @connected
-        @imap = Net::IMAP.new('imap.gmail.com', 993, true)
-        @imap.login(email, password)
-        @connected = true
+
+        begin
+          @imap = Net::IMAP.new('imap.gmail.com', 993, true)
+          @imap.login(email, password)
+          @connected = true
+        rescue Exception => e
+          # here you can add code to customize it.
+        end
+
       end
-      
+
+      @connected
     end
 
     def imap
