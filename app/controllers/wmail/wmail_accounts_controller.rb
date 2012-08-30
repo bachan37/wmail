@@ -2,10 +2,12 @@
 # desc: controller for the accounts
 # created on: 22/08/2012
 #-------------------------------------------------------------------
+require 'wmail_utils'
 
 module Wmail
 
   class WmailAccountsController < ApplicationController
+    include WmailUtils
 
     #-------------------------------------------------------------------
     # desc: here we will list the accounts associated with the user.
@@ -60,7 +62,12 @@ module Wmail
     # output: NA
     #-----------------------------------------------------------------------
     def authenticate
-      
+      wmutils = WmailImapUtils.new(:user_email => params[:user][:email],
+        :user_password => params[:user][:password])
+
+      wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
+      @imap = wmutils.imap
+      puts @imap.inspect
     end
 
   end

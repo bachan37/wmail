@@ -5,9 +5,9 @@
 
 require 'net/imap'
 
-module Wmail
+module WmailUtils
 
-  class WmailUtils
+  class WmailImapUtils
     attr_accessor :user_email, :user_password, :connected
 
     def initialize(options)
