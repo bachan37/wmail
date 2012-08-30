@@ -24,6 +24,7 @@ module WmailUtils
           @imap = Net::IMAP.new('imap.gmail.com', 993, true)
           @imap.login(email, password)
           @connected = true
+          @current_imap = @imap
         rescue Exception => e
           # here you can add code to customize it.
         end
@@ -37,12 +38,18 @@ module WmailUtils
       @imap
     end
 
-    def self.current_imap=(imap_obj)
-      @current_imap = imap_obj
-    end
-
     def self.current_imap
       @current_imap
+    end
+
+    def self.is_connected?
+      connection_flag = false
+      connection_flag = !@current_imap.disconnected? unless @current_imap.blank? unless @connected
+      return connection_flag
+    end
+
+    def self.reconnect
+      self.new(@user_email, @user_password).imap_authenticate(@user_email, @user_password)
     end
 
   end
