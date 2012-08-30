@@ -37,6 +37,14 @@ module WmailUtils
       @imap
     end
 
+    def self.current_imap=(imap_obj)
+      @current_imap = imap_obj
+    end
+
+    def self.current_imap
+      @current_imap
+    end
+
   end
 
 end

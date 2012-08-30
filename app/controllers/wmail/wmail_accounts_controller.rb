@@ -65,9 +65,11 @@ module Wmail
       wmutils = WmailImapUtils.new(:user_email => params[:user][:email],
         :user_password => params[:user][:password])
 
+      #login to email account
       wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
-      @imap = wmutils.imap
-      puts @imap.inspect
+
+      #set the current_imap object
+      WmailImapUtils.current_imap = wmutils.imap
     end
 
   end
