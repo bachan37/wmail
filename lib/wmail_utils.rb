@@ -65,7 +65,6 @@ module WmailUtils
 
     def self.reconnect
       wmutils = self.new(:user_email => @user_email, :user_password => @user_password)
-      puts '#####' + WmailImapUtils.credentials.to_s + ' #####'
       wmutils.imap_authenticate(@user_email, @user_password)
     end
 
