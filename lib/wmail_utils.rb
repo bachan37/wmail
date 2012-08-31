@@ -49,7 +49,7 @@ module WmailUtils
     end
 
     def self.reconnect
-      self.new(@user_email, @user_password).imap_authenticate(@user_email, @user_password)
+      self.new(:user_email => @user_email, :user_password => @user_password).imap_authenticate(@user_email, @user_password)
     end
 
   end
