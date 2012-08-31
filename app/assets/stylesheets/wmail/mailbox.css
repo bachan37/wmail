@@ -2,3 +2,29 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+.wmail-mailbox-list {
+  width: 20%;
+  display: inline-block;
+}
+
+.wmail-mailbox {
+  width: 78%;
+  display: inline-block;
+}
+
+.wmail-mailbox table th{
+  border-bottom: 2px solid #000;
+}
+
+.wmail-mailbox table td{
+  border-bottom: 1px solid #999;
+}
+
+.wmail-sender, .wmail-date {
+  width: 20%;
+}
+
+.wmail-subject {
+  width: 55%;
+}
