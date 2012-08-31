@@ -46,10 +46,10 @@ module Wmail
     # desc: checking the imap object (nil, connected ot not etc.)
     #-------------------------------------------------------------------
     def check_imap
-
-      unless WmailImapUtils.is_connected?
-      
-      end
+      puts WmailImapUtils.set_connection.to_s
+      #redirect to login account if not connected
+      redirect_to login_wmail_accounts_path,
+        :alert => 'Please login to your account' unless WmailImapUtils.set_connection
 
     end
 
