@@ -66,10 +66,10 @@ module Wmail
         :user_password => params[:user][:password])
 
       #login to email account
-      wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
-
-      #set the current_imap object
-      WmailImapUtils.current_imap = wmutils.imap
+      xyz = wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
+      puts xyz.to_s + '1st'
+      x = WmailImapUtils.is_connected?
+      puts x.to_s
     end
 
   end
