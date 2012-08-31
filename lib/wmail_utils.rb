@@ -57,15 +57,31 @@ module WmailUtils
       {:user_email => @user_email, :user_password => @user_password}
     end
 
-    def self.is_connected?
+    def self.set_connection
       connection_flag = false
-      connection_flag = !@current_imap.disconnected? unless @current_imap.blank? unless @connected
+
+      if @connected
+        unless @current_imap.blank?
+          if @current_imap.disconnected?
+            connection_flag = reconnect
+          end
+        else
+          connection_flag = reconnect
+        end
+      else
+        @current_imap.disconnect unless @current_imap.blank?
+      end
+
       return connection_flag
     end
 
+    private
+
     def self.reconnect
+      @connected = false
       wmutils = self.new(:user_email => @user_email, :user_password => @user_password)
-      wmutils.imap_authenticate(@user_email, @user_password)
+      flag = wmutils.imap_authenticate(@user_email, @user_password)
+      return flag
     end
 
   end
