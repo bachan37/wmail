@@ -8,4 +8,6 @@ Wmail::Engine.routes.draw do
       post :authenticate
     end
   end
+
+  resources :mailbox, :only => [:index]
 end
