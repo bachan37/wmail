@@ -5,3 +5,12 @@
  *= require_self
  *= require_tree . 
 */
+.left{
+  float: left;
+}
+.full_width{
+  width: 100%;
+}
+.bold{
+  font-weight: bold;
+}

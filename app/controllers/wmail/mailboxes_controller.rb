@@ -23,7 +23,6 @@ module Wmail
         if not @imap.blank?
 
           @imap.select('INBOX')
-
           @status = @imap.status('INBOX', ['MESSAGES', 'RECENT', 'UNSEEN'])
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
@@ -88,7 +87,10 @@ module Wmail
     # desc: fetch the labels/folders of the mailbox
     #-------------------------------------------------------------------
     def mailbox_list
-      
+      folder_list = WmailImapUtils.get_mailbox_list
+      @folders_count_hash = Hash[ folder_list.map do |a|
+          [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
+      end ]
     end
 
     #-------------------------------------------------------------------
