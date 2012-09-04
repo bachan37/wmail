@@ -40,6 +40,9 @@ module Wmail
           @status = @imap.status(selected_label, ['MESSAGES', 'RECENT', 'UNSEEN'])
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
+          @max = 10
+          @min = 0
+          @mailbox = selected_label
           @inbox = []
 
           if max > 10
