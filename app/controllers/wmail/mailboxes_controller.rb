@@ -27,6 +27,10 @@ module Wmail
         max = @status['MESSAGES']
         min = @status['MESSAGES']-10
         @inbox = @imap.fetch(min..max, 'ENVELOPE')
+        folder_list = WmailImapUtils.get_mailbox_list
+        @folders_count_hash = Hash[ folder_list.map do |a|
+            [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
+        end ]
       end
     end
 

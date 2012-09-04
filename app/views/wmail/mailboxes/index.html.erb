@@ -5,8 +5,8 @@
   <%= link_to '>', mails_mailboxes_path(:mailbox => 'INBOX', :min => 11, :max => 20, :total => @status['MESSAGES']),
     :remote => true, :class => 'wmail-mails-next' %>
 </div>
-<div class="wmail-mailbox-list">
-  
+<div class="left wmail-mailbox-list">
+  <%= render 'folder_list', :folder_lists => @folders_count_hash%>
 </div>
 
 <div class="wmail-mailbox wmail-inbox">

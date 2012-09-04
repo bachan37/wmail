@@ -4,8 +4,9 @@
 */
 
 .wmail-mailbox-list {
-  width: 20%;
   display: inline-block;
+  margin-top: 24px;
+  width: 20%;
 }
 
 .wmail-mailbox {
