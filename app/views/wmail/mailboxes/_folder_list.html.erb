@@ -1,12 +1,22 @@
-<% folder_lists.each do |folder_name, unseen_count| %>
-<div class="left full_width <%= "bold" if unseen_count.to_i > 0 %>">
+<%
+folder_lists.each do |original_folder_name, unseen_count|
+%>
+<div class="wmail-left wmail-full-width <%= "wmail-bold" if unseen_count.to_i > 0 %>">
   <%
+  folder_name = original_folder_name
+
   if folder_name.include?("/")
     folder_name_a = folder_name.split("/")
     folder_name = folder_name_a[folder_name_a.size - 1]
   end
+
+  class_names = "wmail-folder-link"
+  class_names += " wmail-selected-label" if session[:selected_label] == original_folder_name
+  
   %>
-    <%= folder_name.capitalize%>
-    <%= "(#{unseen_count})" if unseen_count.to_i > 0 %>
+  <%= link_to (unseen_count.to_i > 0) ? "#{folder_name.capitalize} (#{unseen_count})" : "#{folder_name.capitalize}", 
+    "/wmail/mailboxes/messages?label=#{original_folder_name}",
+    :class => "#{class_names}"%>
+  
   </div>
 <% end %>

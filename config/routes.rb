@@ -12,6 +12,10 @@ Wmail::Engine.routes.draw do
   resources :mailboxes, :only => [:index] do
     collection do
       get :mails
+      get :messages
+    end
+    member do
+      get :messages
     end
   end
 end

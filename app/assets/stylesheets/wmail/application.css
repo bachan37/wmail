@@ -5,12 +5,12 @@
  *= require_self
  *= require_tree . 
 */
-.left{
+.wmail-left{
   float: left;
 }
-.full_width{
+.wmail-full-width{
   width: 100%;
 }
-.bold{
+.wmail-bold{
   font-weight: bold;
 }

@@ -1,0 +1,5 @@
+- fix the EOF error. currently we have handled that exception but need to fix that
+- need to install the client time zone
+- attachment mail
+- compose a new mail
+- import the contacts

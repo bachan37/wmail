@@ -10,6 +10,7 @@ module Wmail
 
   class MailboxesController < ApplicationController
     include WmailUtils
+    include MailboxHelper
 
     before_filter :check_imap
     before_filter :mailbox_list
@@ -19,21 +20,51 @@ module Wmail
     # output: html
     #-------------------------------------------------------------------
     def index
-      begin
-        if not @imap.blank?
+      first_label = @folders_count_hash.first[0].to_s
+      session[:selected_label] = first_label
+      redirect_to "/wmail/mailboxes/messages?label=#{first_label}"
+    end
 
-          @imap.select('INBOX')
-          @status = @imap.status('INBOX', ['MESSAGES', 'RECENT', 'UNSEEN'])
+    #-------------------------------------------------------------------
+    # desc: generalize the mail box means it will fetch all types of mails
+    # from the any folders
+    # params: id
+    # output: html, js
+    #-------------------------------------------------------------------
+    def messages
+      #begin
+        selected_label = params[:label]
+
+        unless selected_label.blank?
+          @imap.select(selected_label)
+          @status = @imap.status(selected_label, ['MESSAGES', 'RECENT', 'UNSEEN'])
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
-          @inbox = @imap.fetch(min..max, 'ENVELOPE')
+          @inbox = []
+
+          if max > 10
+            @inbox = @imap.fetch(min..max, 'ENVELOPE')
+          elsif (max <= 10 and max > 0)
+            @inbox = @imap.fetch(1..max, 'ENVELOPE')
+          end
 
           @imap.expunge
         end
-      rescue
-        redirect_to login_wmail_accounts_path,
-          :alert => 'Connection Lost. Please login to your account'
-      end
+
+        respond_to do|format|
+          format.html {session[:selected_label] = selected_label}
+          format.js
+        end
+
+      #rescue
+
+       # respond_to do|format|
+       #   format.html {redirect_to login_wmail_accounts_path,
+       #   :alert => 'Connection Lost. Please login to your account'}
+       #   format.js
+       # end
+        
+      #end
     end
 
     #-------------------------------------------------------------------
@@ -43,7 +74,7 @@ module Wmail
     def sent_mail
 
       begin
-        if not @imp.blank?
+        if not @imap.blank?
           @imap.select('[Gmail]/Sent Mail')
 
           @status = @imap.status('[Gmail]/Sent Mail', ['MESSAGES', 'RECENT', 'UNSEEN'])
