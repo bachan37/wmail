@@ -1,0 +1,12 @@
+<% folder_lists.each do |folder_name, unseen_count| %>
+<div class="left full_width <%= "bold" if unseen_count.to_i > 0 %>">
+  <%
+  if folder_name.include?("/")
+    folder_name_a = folder_name.split("/")
+    folder_name = folder_name_a[folder_name_a.size - 1]
+  end
+  %>
+    <%= folder_name.capitalize%>
+    <%= "(#{unseen_count})" if unseen_count.to_i > 0 %>
+  </div>
+<% end %>
