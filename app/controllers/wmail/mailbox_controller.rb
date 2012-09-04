@@ -12,7 +12,6 @@ module Wmail
     include WmailUtils
 
     before_filter :check_imap
-    before_filter :mailbox_list
 
     #-------------------------------------------------------------------
     # desc: gets the inbox related data and passes away to view
@@ -28,6 +27,7 @@ module Wmail
         max = @status['MESSAGES']
         min = @status['MESSAGES']-10
         @inbox = @imap.fetch(min..max, 'ENVELOPE')
+        @mail_folders = WmailImapUtils.get_mailbox_list.inspect
       else
         WmailImapUtils.reconnect
       end

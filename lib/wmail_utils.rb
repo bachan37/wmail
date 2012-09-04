@@ -81,6 +81,14 @@ module WmailUtils
       return connection_flag
     end
 
+    def self.get_mailbox_list
+
+      if set_connection
+        @current_imap.list("", "*")
+      end
+
+    end
+    
     private
 
     def self.reconnect
