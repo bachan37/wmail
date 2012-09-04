@@ -28,3 +28,20 @@
 .wmail-subject {
   width: 55%;
 }
+
+.wmail-mailbox-status {
+  text-align: right;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.wmail-mails-prev, .wmail-mails-next {
+  background: none repeat scroll 0 0 #BBBBBB;
+  border: 0.5px solid #999999;
+  color: #222222;
+  display: inline-block;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+  width: 20px;
+}

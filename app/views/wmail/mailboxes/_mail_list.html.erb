@@ -1,0 +1,15 @@
+<% mails.each do |msg|
+  envelope = msg.attr['ENVELOPE']
+%>
+<tr>
+  <td class="wmail-sender">
+    <%= envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
+  </td>
+  <td class="wmail-subject">
+    <%= envelope.subject %>
+  </td>
+  <td class="wmail-date">
+    <%= envelope.date %>
+  </td>
+</tr>
+<% end %>

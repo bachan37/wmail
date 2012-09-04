@@ -9,5 +9,9 @@ Wmail::Engine.routes.draw do
     end
   end
 
-  resources :mailbox, :only => [:index]
+  resources :mailboxes, :only => [:index] do
+    collection do
+      get :mails
+    end
+  end
 end
