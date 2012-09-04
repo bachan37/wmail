@@ -15,6 +15,10 @@
   font-size: 12px;
 }
 
+.wmail-mailbox table {
+  width: 100%;
+}
+
 .wmail-mailbox table th{
   border-bottom: 2px solid #000;
   font-size: 14px;

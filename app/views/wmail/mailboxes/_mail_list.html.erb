@@ -3,7 +3,8 @@
 %>
 <tr>
   <td class="wmail-sender">
-    <%= envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
+    <% name = envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
+    <%= name.size > 25 ? name[0, 24] + '..' : name %>
   </td>
   <td class="wmail-subject">
   <%
@@ -16,7 +17,7 @@
     <%= subject %>
   </td>
   <td class="wmail-date">
-    <%= envelope.date %>
+    <%= format_date(envelope.date) %>
   </td>
 </tr>
 <% end %>

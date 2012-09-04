@@ -24,6 +24,9 @@ module Wmail
 
           @imap.select('INBOX')
           @status = @imap.status('INBOX', ['MESSAGES', 'RECENT', 'UNSEEN'])
+          @mailbox = 'INBOX'
+          @max = 10
+          @min = 0
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
           @inbox = @imap.fetch(min..max, 'ENVELOPE')
