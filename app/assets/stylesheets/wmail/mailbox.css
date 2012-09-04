@@ -11,14 +11,17 @@
 .wmail-mailbox {
   width: 78%;
   display: inline-block;
+  font-size: 12px;
 }
 
 .wmail-mailbox table th{
   border-bottom: 2px solid #000;
+  font-size: 14px;
 }
 
 .wmail-mailbox table td{
   border-bottom: 1px solid #999;
+  padding: 3px;
 }
 
 .wmail-sender, .wmail-date {

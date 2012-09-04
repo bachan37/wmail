@@ -6,7 +6,14 @@
     <%= envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
   </td>
   <td class="wmail-subject">
-    <%= envelope.subject %>
+  <%
+    subject = 'No subject'
+
+    unless envelope.subject.blank?
+      subject = envelope.subject.size > 80 ? envelope.subject[0, 80] + '...' : envelope.subject
+    end
+  %>
+    <%= subject %>
   </td>
   <td class="wmail-date">
     <%= envelope.date %>

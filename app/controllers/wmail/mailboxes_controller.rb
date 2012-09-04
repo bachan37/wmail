@@ -19,14 +19,21 @@ module Wmail
     # output: html
     #-------------------------------------------------------------------
     def index
+      begin
+        if not @imap.blank?
 
-      if not @imap.blank?
-        @imap.select('INBOX')
+          @imap.select('INBOX')
 
-        @status = @imap.status('INBOX', ['MESSAGES', 'RECENT', 'UNSEEN'])
-        max = @status['MESSAGES']
-        min = @status['MESSAGES']-10
-        @inbox = @imap.fetch(min..max, 'ENVELOPE')
+          @status = @imap.status('INBOX', ['MESSAGES', 'RECENT', 'UNSEEN'])
+          max = @status['MESSAGES']
+          min = @status['MESSAGES']-10
+          @inbox = @imap.fetch(min..max, 'ENVELOPE')
+
+          @imap.expunge
+        end
+      rescue
+        redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'
       end
     end
 
@@ -36,14 +43,19 @@ module Wmail
     #-------------------------------------------------------------------
     def sent_mail
 
-      if not @imp.blank?
-        @imap.select('[Gmail]/Sent Mail')
+      begin
+        if not @imp.blank?
+          @imap.select('[Gmail]/Sent Mail')
 
-        @status = @imap.status('[Gmail]/Sent Mail', ['MESSAGES', 'RECENT', 'UNSEEN'])
-        max = @status['MESSAGES']
-        min = @status['MESSAGES']-10
-        
-        @sent_mails = @imap.fetch(min..max, 'ENVELOPE')
+          @status = @imap.status('[Gmail]/Sent Mail', ['MESSAGES', 'RECENT', 'UNSEEN'])
+          max = @status['MESSAGES']
+          min = @status['MESSAGES']-10
+
+          @sent_mails = @imap.fetch(min..max, 'ENVELOPE')
+        end
+      rescue
+        redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'
       end
     end
 
@@ -54,14 +66,19 @@ module Wmail
     #-------------------------------------------------------------------
     def mails
 
-      if not @imap.blank?
-        @mailbox = params['mailbox']
-        @min = params['min'].to_i
-        @max = params['max'].to_i
-        @total = params['total'].to_i
+      begin
+        if not @imap.blank?
+          @mailbox = params['mailbox']
+          @min = params['min'].to_i
+          @max = params['max'].to_i
+          @total = params['total'].to_i
 
-        @imap.select(@mailbox)
-        @mails = @imap.fetch(@total-@max..@total-@min, 'ENVELOPE')
+          @imap.select(@mailbox)
+          @mails = @imap.fetch(@total-@max..@total-@min, 'ENVELOPE')
+        end
+      rescue
+        redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'
       end
     end
 
@@ -85,16 +102,9 @@ module Wmail
       if not WmailImapUtils.set_connection
         redirect_to login_wmail_accounts_path,
           :alert => 'Please login to your account'
-      else
-        @imap = WmailImapUtils.current_imap
-        puts '**************'+@imap.disconnected?.to_s
-        puts '#########'+@imap.select('INBOX').inspect
-        if @imap.blank? or @imap.disconnected?
-          WmailImapUtils.reconnect
-          @imap = WmailImapUtils.current_imap
-        end
       end
 
+      @imap = WmailImapUtils.current_imap
     end
 
   end
