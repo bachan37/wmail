@@ -4,6 +4,13 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery
-//= require jquery_ujs
 //= require_tree .
+
+$(document).ready(function(){
+  var loader = '<div class="wmail-ajax-loader"><img src="/assets/wmail/ajax-loader.gif" /></div>'
+
+  /*Add loading image to remote calls for mailboxes*/
+  $('.wmail-mailbox-list a, .wmail-mails-prev, .wmail-mails-next').live('ajax:beforeSend', function(){
+    $('.wmail-mailbox table tbody').html('<td colspan="3">' + loader + '</td>');
+  });
+});

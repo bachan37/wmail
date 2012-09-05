@@ -26,6 +26,7 @@ module Wmail
         selected_label = params[:label].blank? ? 'INBOX' : params[:label]
 
         unless selected_label.blank?
+          @imap = WmailImapUtils.current_imap
           @imap.select(selected_label)
           @status = @imap.status(selected_label, ['MESSAGES', 'RECENT', 'UNSEEN'])
           max = @status['MESSAGES']
@@ -68,6 +69,8 @@ module Wmail
     def mails
 
       begin
+        @imap = WmailImapUtils.current_imap
+        
         if not @imap.blank?
           @mailbox = params['mailbox']
           @min = params['min'].to_i
@@ -89,10 +92,19 @@ module Wmail
     # desc: fetch the labels/folders of the mailbox
     #-------------------------------------------------------------------
     def mailbox_list
-      folder_list = WmailImapUtils.get_mailbox_list
-      @folders_count_hash = Hash[ folder_list.map do |a|
-          [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
-      end ]
+      begin
+        @imap = WmailImapUtils.current_imap
+        folder_list = WmailImapUtils.get_mailbox_list
+        @folders_count_hash = Hash[ folder_list.map do |a|
+            [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
+        end ]
+      rescue
+        respond_to do|format|
+          format.html {redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'}
+          format.js {render :js => "window.location = '" + login_wmail_accounts_path + "';"}
+        end
+      end
     end
 
     #-------------------------------------------------------------------
@@ -107,8 +119,6 @@ module Wmail
         redirect_to login_wmail_accounts_path,
           :alert => 'Please login to your account'
       end
-
-      @imap = WmailImapUtils.current_imap
     end
 
   end
