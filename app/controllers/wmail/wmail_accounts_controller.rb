@@ -67,7 +67,7 @@ module Wmail
 
       #login to email account
       wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
-      redirect_to :controller => 'mailboxes', :action => 'index'
+      redirect_to messages_mailboxes_path
     end
 
   end

@@ -20,9 +20,9 @@ module Wmail
     # output: html
     #-------------------------------------------------------------------
     def index
-      first_label = @folders_count_hash.first[0].to_s
-      session[:selected_label] = first_label
-      redirect_to "/wmail/mailboxes/messages?label=#{first_label}"
+      #first_label = @folders_count_hash.first[0].to_s
+      #session[:selected_label] = first_label
+      #redirect_to "/wmail/mailboxes/messages?label=#{first_label}"
     end
 
     #-------------------------------------------------------------------
@@ -32,8 +32,8 @@ module Wmail
     # output: html, js
     #-------------------------------------------------------------------
     def messages
-      #begin
-        selected_label = params[:label]
+      begin
+        selected_label = params[:label].blank? ? 'INBOX' : params[:label]
 
         unless selected_label.blank?
           @imap.select(selected_label)
@@ -59,15 +59,15 @@ module Wmail
           format.js
         end
 
-      #rescue
+      rescue
 
-       # respond_to do|format|
-       #   format.html {redirect_to login_wmail_accounts_path,
-       #   :alert => 'Connection Lost. Please login to your account'}
-       #   format.js
-       # end
+        respond_to do|format|
+          format.html {redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'}
+          format.js
+        end
         
-      #end
+      end
     end
 
     #-------------------------------------------------------------------

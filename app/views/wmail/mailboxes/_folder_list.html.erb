@@ -16,7 +16,7 @@ folder_lists.each do |original_folder_name, unseen_count|
   %>
   <%= link_to (unseen_count.to_i > 0) ? "#{folder_name.capitalize} (#{unseen_count})" : "#{folder_name.capitalize}", 
     "/wmail/mailboxes/messages?label=#{original_folder_name}",
-    :class => "#{class_names}"%>
+    :class => "#{class_names}", :remote => true%>
   
   </div>
 <% end %>
