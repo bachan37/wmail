@@ -1,10 +1,7 @@
 <div class="wmail-mailbox-status">
-  <span class="wmail-mailbox-page">1-10</span> of <%= @status['MESSAGES'].to_s %>
-  <%= link_to '<', '#',
-    :remote => true, :class => 'wmail-mails-prev' %>
-  <%= link_to '>', mails_mailboxes_path(:mailbox => @mailbox, :min => @min+10, :max => @max+10, :total => @status['MESSAGES']),
-    :remote => true, :class => 'wmail-mails-next' %>
+  <%= render 'mailbox_status' %>
 </div>
+
 <div class="left wmail-mailbox-list">
   <%= render 'folder_list', :folder_lists => @folders_count_hash%>
 </div>

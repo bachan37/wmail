@@ -16,16 +16,6 @@ module Wmail
     before_filter :mailbox_list
 
     #-------------------------------------------------------------------
-    # desc: gets the inbox related data and passes away to view
-    # output: html
-    #-------------------------------------------------------------------
-    def index
-      #first_label = @folders_count_hash.first[0].to_s
-      #session[:selected_label] = first_label
-      #redirect_to "/wmail/mailboxes/messages?label=#{first_label}"
-    end
-
-    #-------------------------------------------------------------------
     # desc: generalize the mail box means it will fetch all types of mails
     # from the any folders
     # params: id
@@ -41,7 +31,7 @@ module Wmail
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
           @max = 10
-          @min = 0
+          @min = 1
           @mailbox = selected_label
           @inbox = []
 
@@ -67,28 +57,6 @@ module Wmail
           format.js
         end
         
-      end
-    end
-
-    #-------------------------------------------------------------------
-    # desc: gets the inbox related data and passes away to view
-    # output: html
-    #-------------------------------------------------------------------
-    def sent_mail
-
-      begin
-        if not @imap.blank?
-          @imap.select('[Gmail]/Sent Mail')
-
-          @status = @imap.status('[Gmail]/Sent Mail', ['MESSAGES', 'RECENT', 'UNSEEN'])
-          max = @status['MESSAGES']
-          min = @status['MESSAGES']-10
-
-          @sent_mails = @imap.fetch(min..max, 'ENVELOPE')
-        end
-      rescue
-        redirect_to login_wmail_accounts_path,
-          :alert => 'Connection Lost. Please login to your account'
       end
     end
 
