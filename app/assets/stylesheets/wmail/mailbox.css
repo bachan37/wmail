@@ -53,6 +53,9 @@
 }
 a.wmail-folder-link, a.wmail-folder-link:hover, a.wmail-folder-link:visited{
   color: #000000;
+  display: inline-block;
+  font-size: 13px;
+  margin: 3px 0;
   text-decoration: none;
 }
 a.wmail-selected-label{
@@ -63,4 +66,10 @@ a.wmail-selected-label{
 .wmail-ajax-loader {
   margin: 10% 0;
   text-align: center;
+}
+.wmail-unseen-message{
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+}
+.wmail-seen-message{
+  background: none repeat scroll 0 0 rgba(243, 243, 243, 0.85);
 }
