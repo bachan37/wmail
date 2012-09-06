@@ -1,7 +1,8 @@
 <% mails.each do |msg|
   envelope = msg.attr['ENVELOPE']
+  tr_class_name = @unseen_flags.include?(msg.seqno) ? "wmail-unseen-message" : "wmail-seen-message"
 %>
-<tr>
+<tr class="<%= tr_class_name %>">
   <td class="wmail-sender">
     <% name = envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
     <%= name.size > 25 ? name[0, 24] + '..' : name %>

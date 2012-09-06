@@ -22,6 +22,7 @@ module Wmail
     # output: html, js
     #-------------------------------------------------------------------
     def messages
+      
       begin
         selected_label = params[:label].blank? ? 'INBOX' : params[:label]
 
@@ -36,12 +37,10 @@ module Wmail
           @mailbox = selected_label
           @inbox = []
 
-          if max > 10
-            @inbox = @imap.fetch(min..max, 'ENVELOPE')
-          elsif (max <= 10 and max > 0)
-            @inbox = @imap.fetch(1..max, 'ENVELOPE')
-          end
+          min = 1 if (max <= 10 and max > 0)
 
+          @inbox = @imap.fetch(min..max, 'ENVELOPE')
+          @unseen_flags = @imap.search(['NOT','SEEN'])
           @imap.expunge
         end
 
@@ -59,6 +58,7 @@ module Wmail
         end
         
       end
+      
     end
 
     #-------------------------------------------------------------------
@@ -79,6 +79,7 @@ module Wmail
 
           @imap.select(@mailbox)
           @mails = @imap.fetch(@total-@max..@total-@min, 'ENVELOPE')
+          @unseen_flags = @imap.search(['NOT','SEEN'])
         end
       rescue
         redirect_to login_wmail_accounts_path,
