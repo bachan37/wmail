@@ -53,6 +53,9 @@
 }
 a.wmail-folder-link, a.wmail-folder-link:hover, a.wmail-folder-link:visited{
   color: #000000;
+  display: inline-block;
+  font-size: 13px;
+  margin: 3px 0;
   text-decoration: none;
 }
 a.wmail-selected-label{
