@@ -1,1 +1,2 @@
-$("#wmail-mail-container").html("<%= escape_javascript(render '/wmail/mailboxes/mail_list', :mails => @inbox.reverse)%>")
+$('.wmail-mailbox-status').html("<%= escape_javascript(render 'mailbox_status') %>");
+$("#wmail-mail-container").html("<%= escape_javascript(render '/wmail/mailboxes/mail_list', :mails => @inbox.reverse)%>");

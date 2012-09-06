@@ -1,0 +1,7 @@
+<span class="wmail-mailbox-page">1-10</span> of <%= @status['MESSAGES'].to_s %>
+
+<%= link_to '<', '#',
+  :remote => true, :class => 'wmail-mails-prev' %>
+
+<%= link_to '>', mails_mailboxes_path(:mailbox => @mailbox, :min => @min+10, :max => @max+10, :total => @status['MESSAGES']),
+  :remote => true, :class => 'wmail-mails-next' %>

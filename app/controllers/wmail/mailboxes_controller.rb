@@ -16,16 +16,6 @@ module Wmail
     before_filter :mailbox_list
 
     #-------------------------------------------------------------------
-    # desc: gets the inbox related data and passes away to view
-    # output: html
-    #-------------------------------------------------------------------
-    def index
-      #first_label = @folders_count_hash.first[0].to_s
-      #session[:selected_label] = first_label
-      #redirect_to "/wmail/mailboxes/messages?label=#{first_label}"
-    end
-
-    #-------------------------------------------------------------------
     # desc: generalize the mail box means it will fetch all types of mails
     # from the any folders
     # params: id
@@ -36,12 +26,13 @@ module Wmail
         selected_label = params[:label].blank? ? 'INBOX' : params[:label]
 
         unless selected_label.blank?
+          @imap = WmailImapUtils.current_imap
           @imap.select(selected_label)
           @status = @imap.status(selected_label, ['MESSAGES', 'RECENT', 'UNSEEN'])
           max = @status['MESSAGES']
           min = @status['MESSAGES']-10
           @max = 10
-          @min = 0
+          @min = 1
           @mailbox = selected_label
           @inbox = []
 
@@ -71,28 +62,6 @@ module Wmail
     end
 
     #-------------------------------------------------------------------
-    # desc: gets the inbox related data and passes away to view
-    # output: html
-    #-------------------------------------------------------------------
-    def sent_mail
-
-      begin
-        if not @imap.blank?
-          @imap.select('[Gmail]/Sent Mail')
-
-          @status = @imap.status('[Gmail]/Sent Mail', ['MESSAGES', 'RECENT', 'UNSEEN'])
-          max = @status['MESSAGES']
-          min = @status['MESSAGES']-10
-
-          @sent_mails = @imap.fetch(min..max, 'ENVELOPE')
-        end
-      rescue
-        redirect_to login_wmail_accounts_path,
-          :alert => 'Connection Lost. Please login to your account'
-      end
-    end
-
-    #-------------------------------------------------------------------
     # desc: gets the given number of mails from the given mailbox and
     #   return it to ajax call.
     # output: js
@@ -100,6 +69,8 @@ module Wmail
     def mails
 
       begin
+        @imap = WmailImapUtils.current_imap
+        
         if not @imap.blank?
           @mailbox = params['mailbox']
           @min = params['min'].to_i
@@ -121,10 +92,19 @@ module Wmail
     # desc: fetch the labels/folders of the mailbox
     #-------------------------------------------------------------------
     def mailbox_list
-      folder_list = WmailImapUtils.get_mailbox_list
-      @folders_count_hash = Hash[ folder_list.map do |a|
-          [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
-      end ]
+      begin
+        @imap = WmailImapUtils.current_imap
+        folder_list = WmailImapUtils.get_mailbox_list
+        @folders_count_hash = Hash[ folder_list.map do |a|
+            [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
+        end ]
+      rescue
+        respond_to do|format|
+          format.html {redirect_to login_wmail_accounts_path,
+          :alert => 'Connection Lost. Please login to your account'}
+          format.js {render :js => "window.location = '" + login_wmail_accounts_path + "';"}
+        end
+      end
     end
 
     #-------------------------------------------------------------------
@@ -139,8 +119,6 @@ module Wmail
         redirect_to login_wmail_accounts_path,
           :alert => 'Please login to your account'
       end
-
-      @imap = WmailImapUtils.current_imap
     end
 
   end
