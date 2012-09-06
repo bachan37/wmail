@@ -14,7 +14,7 @@
       subject = envelope.subject.size > 80 ? envelope.subject[0, 80] + '...' : envelope.subject
     end
   %>
-    <%= subject %>
+    <%= link_to subject, fetch_mail_mailboxes_path(:sequence => msg.seqno) %>
   </td>
   <td class="wmail-date">
     <%= format_date(envelope.date) %>

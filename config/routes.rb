@@ -13,6 +13,7 @@ Wmail::Engine.routes.draw do
     collection do
       get :mails
       get :messages
+      get :fetch_mail
     end
     member do
       get :messages

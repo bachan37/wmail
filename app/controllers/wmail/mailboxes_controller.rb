@@ -86,6 +86,26 @@ module Wmail
       end
     end
 
+    #-------------------------------------------------------------------
+    # desc: gets the body and header of the mail with given sequence no
+    # output: js
+    #-------------------------------------------------------------------
+    def fetch_mail
+      seqno = params[:sequence].to_i
+
+      #begin
+        @imap = WmailImapUtils.current_imap
+
+        @message = @imap.fetch(seqno, 'BODY[TEXT]')
+#      rescue
+#        respond_to do|format|
+#          format.html {redirect_to login_wmail_accounts_path,
+#          :alert => 'Connection Lost. Please login to your account'}
+#          format.js
+#        end
+#      end
+    end
+
     private
 
     #-------------------------------------------------------------------
