@@ -5,6 +5,7 @@
 #-----------------------------------------------------------------------------
 
 require 'wmail_utils'
+require 'mail'
 
 module Wmail
 
@@ -97,7 +98,8 @@ module Wmail
       #begin
         @imap = WmailImapUtils.current_imap
 
-        @message = @imap.fetch(seqno, 'BODY[TEXT]')
+        @message = @imap.fetch(seqno, 'RFC822')
+#        @message = Mail.new(message)
 #      rescue
 #        respond_to do|format|
 #          format.html {redirect_to login_wmail_accounts_path,
