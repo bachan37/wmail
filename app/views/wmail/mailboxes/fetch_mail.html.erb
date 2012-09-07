@@ -1,3 +1,17 @@
 <div>
-  <%= @message.body.decode %>
+  <%
+    if @mail.multipart?
+      if @mail.html_part
+  %>
+        <%= @mail.html_part.body.decoded.to_s.html_safe %>
+  <%
+      elsif @mail.text_part
+  %>
+        <%= @mail.text_part.body.decoded.to_s %>
+
+  <%  end
+    else
+  %>
+      <%= @mail.body.decoded.to_s %>
+  <% end %>
 </div>

@@ -95,5 +95,6 @@ PLATFORMS
 
 DEPENDENCIES
   jquery-rails
+  mail (~> 2.3.3)
   mysql2
   wmail!
