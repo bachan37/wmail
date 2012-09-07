@@ -44,8 +44,10 @@ module Wmail
           @imap.expunge
         end
 
+        session[:selected_label] = selected_label
+        
         respond_to do|format|
-          format.html {session[:selected_label] = selected_label}
+          format.html
           format.js
         end
 
