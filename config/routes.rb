@@ -19,4 +19,6 @@ Wmail::Engine.routes.draw do
       get :messages
     end
   end
+
+  resources :mails
 end
