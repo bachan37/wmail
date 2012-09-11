@@ -21,7 +21,9 @@ module WmailUtils
       unless @connected
 
         begin
-          @imap = Net::IMAP.new('imap.gmail.com', 993, true)
+          #@imap = Net::IMAP.new('imap.gmail.com', 993, true)
+
+          @imap = Net::IMAP.new('imap.mail.yahoo.com', 993, true)
           @imap.login(email, password)
           
           WmailImapUtils.connected = true
@@ -75,6 +77,7 @@ module WmailUtils
           connection_flag = reconnect
         end
       else
+        puts 'not connected'
         @current_imap.disconnect unless @current_imap.blank?
       end
 
@@ -100,4 +103,36 @@ module WmailUtils
 
   end
 
+end
+
+module Net
+  class IMAP
+    class ResponseParser
+      def search_response # line 2706 imap.rb
+      token = match(T_ATOM)
+      name = token.value.upcase
+      token = lookahead
+      if token.symbol == T_SPACE
+        shift_token
+        data = []
+        while true
+          token = lookahead
+    #begin patch  - yahoo IMAP was returning pattern " SEARCH 1 2 \r\n  so was doing push on CRLF
+          case token.symbol
+            when T_CRLF
+              break
+            when T_SPACE
+              shift_token
+            else
+              data.push(number)
+          end
+    #end patch
+        end
+      else
+        data = []
+      end
+      return UntaggedResponse.new(name, data, @str)
+    end
+    end #class ResponseParser
+  end #class IMAP
 end

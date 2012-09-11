@@ -1,1 +1,9 @@
+$('.wmail-mailbox-status .wmail-mailbox-page').html('<%= @total - @seqno + 1 %>');
+
+$('.wmail-mails-prev').attr('href',
+  '<%= mail_path(@seqno + 1, :total => @total) %>');
+
+$('.wmail-mails-next').attr('href',
+  '<%= mail_path(@seqno - 1, :total => @total) %>');
+
 $('.wmail-mailbox').html("<%= escape_javascript(render 'mail_content') %>");

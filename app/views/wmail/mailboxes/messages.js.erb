@@ -1,2 +1,3 @@
 $('.wmail-mailbox-status').html("<%= escape_javascript(render 'mailbox_status') %>");
-$(".wmail-mailbox").html("<%= escape_javascript(render '/wmail/mailboxes/mail_list', :mails => @inbox.reverse)%>");
+$(".wmail-mailbox").html("<%= escape_javascript(render '/wmail/mailboxes/mail_list',
+  :mails => @inbox.reverse, :total => @status['MESSAGES'])%>");

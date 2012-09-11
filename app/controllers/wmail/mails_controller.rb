@@ -17,11 +17,12 @@ module Wmail
     # output: js
     #-------------------------------------------------------------------
     def show
-      seqno = params[:id].to_i
+      @seqno = params[:id].to_i
+      @total = params[:total].to_i
 
       begin
         @imap = WmailImapUtils.current_imap
-        message = @imap.fetch(seqno, ['RFC822']).first.attr['RFC822']
+        message = @imap.fetch(@seqno, ['RFC822']).first.attr['RFC822']
         @mail = Mail.new(message)
       rescue
         respond_to do|format|

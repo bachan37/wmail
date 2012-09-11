@@ -8,15 +8,18 @@
 }
 
 .wmail-mailbox {
-  width: 80%;
+  width: 83%;
   display: inline-block;
   font-size: 12px;
-  padding: 1% 1.5%;
+  padding: 1% 0;
   background: none repeat scroll 0 0 rgba(243, 243, 243, 0.85);
+  height: 380px;
+  overflow-y: auto;
 }
 
 .wmail-mailbox table.wmail-container-table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .wmail-mailbox table.wmail-container-table th {
@@ -27,10 +30,15 @@
 .wmail-mailbox table.wmail-container-table td {
   border-bottom: 1px solid #999;
   padding: 3px;
+  overflow: hidden;
 }
 
 .wmail-sender, .wmail-date {
   width: 20%;
+}
+
+.wmail-mailbox table.wmail-container-table td.wmail-sender {
+  padding-left: 10px;
 }
 
 .wmail-subject {
