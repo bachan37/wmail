@@ -1,24 +1,36 @@
-<% mails.each do |msg|
-  envelope = msg.attr['ENVELOPE']
-  tr_class_name = @unseen_flags.include?(msg.seqno) ? "wmail-unseen-message" : "wmail-seen-message"
-%>
-<tr class="<%= tr_class_name %>">
-  <td class="wmail-sender">
-    <% name = envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
-    <%= name.size > 25 ? name[0, 24] + '..' : name %>
-  </td>
-  <td class="wmail-subject">
-  <%
-    subject = 'No subject'
+<table class="wmail-container-table" width="100%">
+  <thead>
+    <tr>
+      <th class="wmail-sender">From</th>
+      <th class="wmail-subject">Subject</th>
+      <th class="wmail-date">Date</th>
+    </tr>
+  </thead>
+  <tbody id="wmail-mail-container">
 
-    unless envelope.subject.blank?
-      subject = envelope.subject.size > 80 ? envelope.subject[0, 80] + '...' : envelope.subject
-    end
-  %>
-    <%= link_to subject, fetch_mail_mailboxes_path(:sequence => msg.seqno) %>
-  </td>
-  <td class="wmail-date">
-    <%= format_date(envelope.date) %>
-  </td>
-</tr>
-<% end %>
+    <% mails.each do |msg|
+      envelope = msg.attr['ENVELOPE']
+      tr_class_name = @unseen_flags.include?(msg.seqno) ? "wmail-unseen-message" : "wmail-seen-message"
+    %>
+    <tr class="<%= tr_class_name %>">
+      <td class="wmail-sender">
+        <% name = envelope.from[0].name.blank? ? envelope.from[0].mailbox : envelope.from[0].name %>
+        <%= name.size > 25 ? name[0, 24] + '..' : name %>
+      </td>
+      <td class="wmail-subject">
+      <%
+        subject = 'No subject'
+
+        unless envelope.subject.blank?
+          subject = envelope.subject.size > 80 ? envelope.subject[0, 80] + '...' : envelope.subject
+        end
+      %>
+        <%= link_to subject, mail_path(msg.seqno), :remote => true %>
+      </td>
+      <td class="wmail-date">
+        <%= format_date(envelope.date) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

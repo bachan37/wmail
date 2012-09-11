@@ -7,16 +7,5 @@
 </div>
 
 <div class="wmail-mailbox wmail-inbox">
-  <table width="100%">
-    <thead>
-      <tr>
-        <th class="wmail-sender">From</th>
-        <th class="wmail-subject">Subject</th>
-        <th class="wmail-date">Date</th>
-      </tr>
-    </thead>
-    <tbody id="wmail-mail-container">
-      <%= render 'mail_list', :mails => @inbox.reverse %>
-    </tbody>
-  </table>
+  <%= render 'mail_list', :mails => @inbox.reverse %>
 </div>
