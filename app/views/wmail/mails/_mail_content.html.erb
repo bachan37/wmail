@@ -12,6 +12,7 @@
   <%  end
     else
   %>
-      <%= @mail.body.decoded.to_s %>
+      <%#= @mail.parameters['Content-Type'] %>
+      <%= @mail.parts.length %>
   <% end %>
 </div>
