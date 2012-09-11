@@ -25,7 +25,7 @@
           subject = envelope.subject.size > 80 ? envelope.subject[0, 80] + '...' : envelope.subject
         end
       %>
-        <%= link_to subject, mail_path(msg.seqno), :remote => true %>
+        <%= link_to subject, mail_path(msg.seqno, :total => total), :remote => true %>
       </td>
       <td class="wmail-date">
         <%= format_date(envelope.date) %>

@@ -7,5 +7,5 @@
 </div>
 
 <div class="wmail-mailbox wmail-inbox">
-  <%= render 'mail_list', :mails => @inbox.reverse %>
+  <%= render 'mail_list', :mails => @inbox.reverse, :total => @status['MESSAGES'] %>
 </div>
