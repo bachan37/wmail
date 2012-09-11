@@ -12,6 +12,11 @@
   <%  end
     else
   %>
+    <% if  @mail.content_type.include?("text/html") %>
+      <%= @mail.body.decoded.to_s.html_safe %>
+    <% else %>
       <%= @mail.body.decoded.to_s %>
+    <% end %>
+      
   <% end %>
 </div>
