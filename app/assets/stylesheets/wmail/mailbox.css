@@ -5,6 +5,7 @@
 
 .wmail-mailbox-list {
   width: 16%;
+  background-color: #FFF !important;
 }
 
 .wmail-mailbox {
@@ -49,6 +50,7 @@
   text-align: right;
   height: 50px;
   margin-right: 20px;
+  background-color: #FFF !important;
 }
 
 a.wmail-mails-prev, a.wmail-mails-prev:link, a.wmail-mails-prev:hover,
