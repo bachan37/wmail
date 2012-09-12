@@ -15,7 +15,7 @@ module Wmail
 
       #redirect to login account if not connected
       if not WmailImapUtils.set_connection
-        redirect_to login_wmail_accounts_path,
+        redirect_to authenticate_wmail_accounts_path(:redirect => params),
           :alert => 'Please login to your account'
       end
     end
@@ -32,9 +32,9 @@ module Wmail
         end ]
       rescue
         respond_to do|format|
-          format.html {redirect_to login_wmail_accounts_path,
+          format.html {redirect_to authenticate_wmail_accounts_path(:redirect => params),
           :alert => 'Connection Lost. Please login to your account'}
-          format.js {render :js => "window.location = '" + login_wmail_accounts_path + "';"}
+          format.js {render :js => "window.location = '" + authenticate_wmail_accounts_path(:redirect => params) + "';"}
         end
       end
     end

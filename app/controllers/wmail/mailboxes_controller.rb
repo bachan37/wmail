@@ -20,9 +20,9 @@ module Wmail
     # output: html, js
     #-------------------------------------------------------------------
     def messages
+      selected_label = params[:label].blank? ? 'INBOX' : params[:label]
       
       begin
-        selected_label = params[:label].blank? ? 'INBOX' : params[:label]
 
         unless selected_label.blank?
           @imap = WmailImapUtils.current_imap
@@ -52,7 +52,7 @@ module Wmail
       rescue
 
         respond_to do|format|
-          format.html {redirect_to login_wmail_accounts_path,
+          format.html {redirect_to authenticate_wmail_accounts_path(:redirect => messages_mailbox_path(:label => selected_label)),
           :alert => 'Connection Lost. Please login to your account'}
           format.js
         end
@@ -82,7 +82,7 @@ module Wmail
           @unseen_flags = @imap.search(['NOT','SEEN'])
         end
       rescue
-        redirect_to login_wmail_accounts_path,
+        redirect_to authenticate_wmail_accounts_path(:redirect => messages_mailbox_path(:label => selected_label)),
           :alert => 'Connection Lost. Please login to your account'
       end
     end    

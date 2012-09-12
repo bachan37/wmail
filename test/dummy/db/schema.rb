@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912063005) do
+ActiveRecord::Schema.define(:version => 20120912101517) do
 
   create_table "users", :force => true do |t|
     t.string   "user_name"
@@ -24,10 +24,12 @@ ActiveRecord::Schema.define(:version => 20120912063005) do
     t.string   "user_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "account_type"
     t.string   "server"
     t.integer  "port"
     t.boolean  "enable_ssl"
+    t.string   "password"
+    t.boolean  "set_default"
   end
 
 end

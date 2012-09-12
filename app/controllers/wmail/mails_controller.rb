@@ -28,7 +28,7 @@ module Wmail
         mailbox_list
       rescue
         respond_to do|format|
-          format.html {redirect_to login_wmail_accounts_path,
+          format.html {redirect_to authenticate_wmail_accounts_path(:redirect => messages_mailbox_path(:label => selected_label)),
           :alert => 'Connection Lost. Please login to your account'}
           format.js
         end

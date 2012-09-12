@@ -8,26 +8,25 @@ require 'net/imap'
 module WmailUtils
 
   class WmailImapUtils
-    attr_accessor :user_email, :user_password, :connected
+    attr_accessor :user_account, :connected
 
-    def initialize(options)
-      @user_email = options[:user_email] ||= nil
-      @user_password = options[:user_password] ||= nil
+    def initialize(wmail_account)
+      @user_account = wmail_account
       @connected = false
     end
 
-    def imap_authenticate(email, password)
+    def imap_authenticate(wmail_account)
       
       unless @connected
 
         begin
-          @imap = Net::IMAP.new('imap.gmail.com', 993, true)
+          @imap = Net::IMAP.new(wmail_account.server, wmail_account.port, wmail_account.enable_ssl)
 
           #@imap = Net::IMAP.new('imap.mail.yahoo.com', 993, true)
-          @imap.login(email, password)
+          @imap.login(wmail_account.user_email, wmail_account.password)
           
           WmailImapUtils.connected = true
-          WmailImapUtils.credentials=({:user_email => email, :user_password => password})
+          WmailImapUtils.credentials=({:user_email => wmail_account.user_email, :user_password => wmail_account.password})
           WmailImapUtils.current_imap = @imap
         rescue Exception => e
           # here you can add code to customize it.
@@ -54,13 +53,12 @@ module WmailUtils
       @current_imap
     end
 
-    def self.credentials=(creds)
-      @user_email = creds[:user_email]
-      @user_password = creds[:user_password]
+    def self.credentials=(wmail_account)
+      @user_account = wmail_account
     end
 
     def self.credentials
-      {:user_email => @user_email, :user_password => @user_password}
+      @user_account
     end
 
     def self.set_connection
@@ -78,7 +76,7 @@ module WmailUtils
         end
       else
         puts 'not connected'
-        @current_imap.disconnect unless @current_imap.blank?
+        @current_imap.disconnect unless @current_imap.disconnected? unless @current_imap.blank?
       end
 
       return connection_flag
@@ -96,8 +94,8 @@ module WmailUtils
 
     def self.reconnect
       @connected = false
-      wmutils = self.new(:user_email => @user_email, :user_password => @user_password)
-      flag = wmutils.imap_authenticate(@user_email, @user_password)
+      wmutils = self.new(@user_account)
+      flag = wmutils.imap_authenticate(@user_account)
       return flag
     end
 

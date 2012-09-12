@@ -62,12 +62,23 @@ module Wmail
     # output: NA
     #-----------------------------------------------------------------------
     def authenticate
-      wmutils = WmailImapUtils.new(:user_email => params[:user][:email],
-        :user_password => params[:user][:password])
+      account = WmailAccount.find_by_user_id_and_default(current_user.id, true)
 
-      #login to email account
-      wmutils.imap_authenticate(params[:user][:email], params[:user][:password])
-      redirect_to messages_mailboxes_path
+      if account.blank?
+        redirect_to new_wmail_account_path, :notice => 'Please set up an account before continuing!'
+      else
+
+        wmutils = WmailImapUtils.new(account)
+
+        #login to email account
+        wmutils.imap_authenticate(account)
+
+        if params[:redirect].blank?
+          redirect_to messages_mailboxes_path
+        else
+          redirect_to params[:redirect]
+        end
+      end
     end
 
   end
