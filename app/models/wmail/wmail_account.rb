@@ -5,7 +5,7 @@
 
 module Wmail
   class WmailAccount < ActiveRecord::Base
-    attr_accessible :user_id, :user_email, :type, :server, :port, :enable_ssl
+    attr_accessible :user_id, :user_email, :account_type, :server, :port, :enable_ssl
 
     belongs_to :user, :class_name => Wmail.user_class, :foreign_key => :user_id
 
