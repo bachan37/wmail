@@ -6,4 +6,11 @@ $('.wmail-mails-prev').attr('href',
 $('.wmail-mails-next').attr('href',
   '<%= mail_path(@seqno - 1, :total => @total) %>');
 
+$('.wmail-mailbox').on('click', 'a', function(){
+  $(this).attr('target', '_blank');
+});
+
+$('.wmail-mailbox-list').html("<%= escape_javascript(render '/wmail/mailboxes/folder_list',
+  :folder_lists => @folders_count_hash) %>");
+  
 $('.wmail-mailbox').html("<%= escape_javascript(render 'mail_content') %>");

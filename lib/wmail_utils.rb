@@ -21,9 +21,9 @@ module WmailUtils
       unless @connected
 
         begin
-          #@imap = Net::IMAP.new('imap.gmail.com', 993, true)
+          @imap = Net::IMAP.new('imap.gmail.com', 993, true)
 
-          @imap = Net::IMAP.new('imap.mail.yahoo.com', 993, true)
+          #@imap = Net::IMAP.new('imap.mail.yahoo.com', 993, true)
           @imap.login(email, password)
           
           WmailImapUtils.connected = true
