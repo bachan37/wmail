@@ -24,6 +24,8 @@ module Wmail
         @imap = WmailImapUtils.current_imap
         message = @imap.fetch(@seqno, ['RFC822']).first.attr['RFC822']
         @mail = Mail.new(message)
+        # get the folder list
+        mailbox_list
       rescue
         respond_to do|format|
           format.html {redirect_to login_wmail_accounts_path,

@@ -1,3 +1,6 @@
 $('.wmail-mailbox-status').html("<%= escape_javascript(render 'mailbox_status') %>");
 $(".wmail-mailbox").html("<%= escape_javascript(render '/wmail/mailboxes/mail_list',
   :mails => @inbox.reverse, :total => @status['MESSAGES'])%>");
+  
+$('.wmail-mailbox-list').html("<%= escape_javascript(render '/wmail/mailboxes/folder_list',
+  :folder_lists => @folders_count_hash) %>");

@@ -7,3 +7,6 @@ $('.wmail-mails-next').attr('href',
   '<%= mails_mailboxes_path(:mailbox => @mailbox, :max => @max+10, :min => @min+10, :total => @total) %>');
 
 $('.wmail-mailbox').html('<%= escape_javascript(render "mail_list", :mails => @mails.reverse, :total => @total) %>')
+
+$('.wmail-mailbox-list').html("<%= escape_javascript(render '/wmail/mailboxes/folder_list',
+  :folder_lists => @folders_count_hash) %>");

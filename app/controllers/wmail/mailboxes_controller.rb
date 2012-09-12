@@ -85,28 +85,7 @@ module Wmail
         redirect_to login_wmail_accounts_path,
           :alert => 'Connection Lost. Please login to your account'
       end
-    end
-
-    private
-
-    #-------------------------------------------------------------------
-    # desc: fetch the labels/folders of the mailbox
-    #-------------------------------------------------------------------
-    def mailbox_list
-      begin
-        @imap = WmailImapUtils.current_imap
-        folder_list = WmailImapUtils.get_mailbox_list
-        @folders_count_hash = Hash[ folder_list.map do |a|
-            [a.name, @imap.status(a.name, ["UNSEEN"])["UNSEEN"]] unless a.name == "[Gmail]"
-        end ]
-      rescue
-        respond_to do|format|
-          format.html {redirect_to login_wmail_accounts_path,
-          :alert => 'Connection Lost. Please login to your account'}
-          format.js {render :js => "window.location = '" + login_wmail_accounts_path + "';"}
-        end
-      end
-    end
+    end    
 
   end
 
