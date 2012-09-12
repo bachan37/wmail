@@ -5,8 +5,8 @@
 
 .wmail-form-block {
   border: 1px solid;
-  height: 199px;
-  margin: 12% auto;
+  /*height: 199px;*/
+  margin: 12% auto 0;
   width: 400px;
 }
 

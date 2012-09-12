@@ -1,0 +1,20 @@
+gmail:
+  type: imap
+  server: imap.gmail.com
+  port: 993
+  connection_security: ssl
+yahoo:
+  type: imap
+  server: imap.mail.yahoo.com
+  port: 993
+  connection_security: ssl
+#rediff:
+#  type: imap
+#  server: imap.gmail.com
+#  port: 993
+#  connection_security: ssl
+#live:
+#  type: imap
+#  server: imap.gmail.com
+#  port: 993
+#  connection_security: ssl

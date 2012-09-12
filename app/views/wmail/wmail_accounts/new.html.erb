@@ -15,6 +15,27 @@
         <%= f.email_field :user_email %>
       </div>
 
+      <div class="wmail-fields">
+        <%= f.label :type %><br/>
+        <%= f.text_field :type %>
+      </div>
+
+      <div class="wmail-fields">
+        <%= f.label :server %><br/>
+        <%= f.text_field :server %>
+      </div>
+
+      <div class="wmail-fields">
+        <%= f.label :port %><br/>
+        <%= f.text_field :port %>
+      </div>
+
+      <div class="wmail-fields">
+        <%= f.label :enable_ssl %><br/>
+        <%= f.radio_button :enable_ssl, true, :checked => true %> <%= f.label :enable_ssl_true, 'Yes' %>
+        <%= f.radio_button :enable_ssl, false %> <%= f.label :enable_ssl_false, 'No' %>
+      </div>
+
       <div class="wmail-actions">
         <%= f.submit "Add Account" %>
       </div>
